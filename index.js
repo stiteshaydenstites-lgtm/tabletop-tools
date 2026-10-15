@@ -7,6 +7,7 @@
  */
 function canCastSpell(isSpellPrepared, hasScroll) {
   // TODO
+  return isSpellPrepared || hasScroll;
 }
 
 /**
@@ -18,6 +19,7 @@ function canCastSpell(isSpellPrepared, hasScroll) {
  */
 function isHidden(hiding, aware) {
   // TODO
+  return hiding || !aware;
 }
 
 /**
@@ -29,6 +31,7 @@ function isHidden(hiding, aware) {
  */
 function doesStrikeHit(attack, ac) {
   // TODO
+  return attack >= ac;
 }
 
 /**
@@ -40,6 +43,7 @@ function doesStrikeHit(attack, ac) {
  */
 function doesStrikeCrit(attack, ac) {
   // TODO
+  return (attack-10) > ac;
 }
 
 /**
@@ -52,6 +56,12 @@ function doesStrikeCrit(attack, ac) {
  */
 function heal(maxHp, currentHp, healAmount) {
   // TODO
+  if((currentHp+healAmount)>maxHp){
+    return maxHp;
+  }else{
+    return currentHp+healAmount;
+  }
+  
 }
 
 /**
@@ -72,6 +82,20 @@ function heal(maxHp, currentHp, healAmount) {
  */
 function getProficiencyBonus(level, rank) {
   // TODO
+  if(rank==="untrained"){
+    return 0;
+  }
+  else if(rank==="trained"){
+    return level+2;
+  }else if(rank==="expert"){
+    return level+4;
+  }
+  else if(rank="master"){
+    return level+6;
+  }
+  else{
+    return level+8;
+  }
 }
 
 /**
@@ -86,6 +110,13 @@ function getProficiencyBonus(level, rank) {
  */
 function getCoverBonus(behindObstacle, takingCover) {
   // TODO
+  if(behindObstacle){
+    return 2;
+  }else if(takingCover){
+    return 4;
+  }else{
+    return 0;
+  }
 }
 
 /**
@@ -102,6 +133,15 @@ function getCoverBonus(behindObstacle, takingCover) {
  */
 function getRemainingHp(maxHp, currentHp, damage) {
   // TODO
+  if(damage >= (maxHp*2)){
+    return -1;
+  }
+  else if(currentHp-damage <=0){
+    return 0;
+  }
+  else{
+    return currentHp-damage;
+  }
 }
 
 /**
@@ -114,6 +154,25 @@ function getRemainingHp(maxHp, currentHp, damage) {
  */
 function canSee(light, vision) {
   // TODO
+  if(light==="bright"){
+    return true;
+  }
+  else if(light==="dim"){
+    if(vision==="low-light" || vision==="dark"){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }else{
+    if(vision==="dark"){
+      return true;
+    
+    }
+    else{
+      return false;
+    }
+  }
 }
 
 /**
@@ -128,4 +187,12 @@ function canSee(light, vision) {
  */
 function getStrikeDamage(attack, ac, damage) {
   // TODO
+  if(doesStrikeCrit(attack,ac)){
+    return 2*damage;
+  }else if(doesStrikeHit(attack,ac)){
+    return damage;
+  }
+  else{
+    return 0;
+  }
 }
